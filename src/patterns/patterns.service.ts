@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Pattern } from './pattern.schema';
 import { Model } from 'mongoose';
 import { CreatePatternDto } from './dto/create-pattern.dto';
@@ -17,11 +17,5 @@ export class PatternsService {
 
   async findAll(): Promise<Pattern[]> {
     return this.patternModel.find().sort({ createdAt: -1 }).exec();
-  }
-
-  async findOne(id: string): Promise<Pattern> {
-    const pattern = await this.patternModel.findById(id).exec();
-    if (!pattern) throw new NotFoundException('Pattern not found');
-    return pattern;
   }
 }
